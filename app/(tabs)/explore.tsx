@@ -1,119 +1,126 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { Collapsible } from '@/components/ui/collapsible';
-import { ExternalLink } from '@/components/external-link';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
+import { ScrollView, StyleSheet, TouchableOpacity, View, FlatList } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Colors } from '@/constants/theme';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Fonts } from '@/constants/theme';
 
-export default function TabTwoScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#363536ff' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
-          Explore
-        </ThemedText>
-        <ThemedText type="title">
-          <ThemedText type="defaultSemiBold">
-            <IconSymbol name="chevron.left.forwardslash.chevron.right" size={28} color={'#1bbeefff'} />
-          </ThemedText>
-          ändring
-         </ThemedText> 
+const TRAFFIC_SIGNS = [
+  { id: '1', icon: 'info.circle.fill', color: '#3B82F6', label: 'Información' },
+  { id: '2', icon: 'exclamationmark.triangle.fill', color: '#F59E0B', label: 'Precaución' },
+  { id: '3', icon: 'triangle.fill', color: '#F59E0B', label: 'Advertencia' },
+  { id: '4', icon: 'circle.slash', color: '#EF4444', label: 'Prohibido' },
+  { id: '5', icon: 'line.horizontal.3', color: '#3B82F6', label: 'Señal' },
+  { id: '6', icon: 'circle.fill', color: '#3B82F6', label: 'Obligatorio' },
+  { id: '7', icon: 'circle.fill', color: '#3B82F6', label: 'Dirección' },
+  { id: '8', icon: 'circle.fill', color: '#F59E0B', label: 'Precaución' },
+  { id: '9', icon: 'line.horizontal.3.decrease', color: '#3B82F6', label: 'Control' },
+  { id: '10', icon: 'circle.fill', color: '#EF4444', label: 'Parada' },
+  { id: '11', icon: 'circle.fill', color: '#3B82F6', label: 'Ruta' },
+  { id: '12', icon: 'line.horizontal.3', color: '#F59E0B', label: 'Tráfico' },
+];
 
+export default function SkyltarScreen() {
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme ?? 'light'];
+
+  const renderSign = ({ item }: { item: typeof TRAFFIC_SIGNS[0] }) => (
+    <TouchableOpacity style={styles.signItem}>
+      <ThemedView style={[styles.signCircle, { backgroundColor: item.color }]}>
+        <IconSymbol name={item.icon as any} size={40} color="white" />
       </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
+    </TouchableOpacity>
+  );
+
+  return (
+    <ThemedView style={styles.container}>
+      {/* Header */}
+      <ThemedView style={styles.headerSection}>
+        <ThemedView style={styles.headerTop}>
+          <IconSymbol name="chevron.left" size={24} color={colors.text} />
+          <ThemedText type="title" style={styles.headerTitle}>Skyltar</ThemedText>
+          <IconSymbol name="line.horizontal.3" size={24} color={colors.text} />
+        </ThemedView>
+
+        {/* Filter Pills */}
+        <ThemedView style={styles.filterContainer}>
+          <TouchableOpacity style={[styles.filterPill, { backgroundColor: '#E0E7FF' }]}>
+            <ThemedText style={{ color: '#000000ff', fontSize: 12 }}>Alla</ThemedText>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.filterPill}>
+            <ThemedText style={{color: "#000000ff", fontSize: 12 }}>Vägar</ThemedText>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.filterPill, { backgroundColor: '#33a9edff' }]}>
+            <ThemedText style={{color: "#000000ff", fontSize: 12 }}>Stad</ThemedText>
+          </TouchableOpacity>
+        </ThemedView>
+      </ThemedView>
+
+      {/* Traffic Signs Grid */}
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        <FlatList
+          scrollEnabled={false}
+          data={TRAFFIC_SIGNS}
+          renderItem={renderSign}
+          keyExtractor={(item) => item.id}
+          numColumns={3}
+          columnWrapperStyle={styles.row}
+          contentContainerStyle={styles.signGrid}
         />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+      </ScrollView>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    flex: 1,
   },
-  titleContainer: {
+  headerSection: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 12,
+  },
+  headerTop: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: '700',
+  },
+  filterContainer: {
     flexDirection: 'row',
     gap: 8,
+  },
+  filterPill: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+    backgroundColor: '#F3F4F6',
+  },
+  content: {
+    flex: 1,
+    paddingHorizontal: 16,
+  },
+  signGrid: {
+    paddingVertical: 12,
+  },
+  row: {
+    justifyContent: 'space-around',
+    marginBottom: 16,
+  },
+  signItem: {
+    alignItems: 'center',
+    width: '30%',
+  },
+  signCircle: {
+    width: 90,
+    height: 90,
+    borderRadius: 45,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
