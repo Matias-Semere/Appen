@@ -44,8 +44,8 @@ export default function LanguageScreen() {
                 styles.languageCard,
                 {
                   backgroundColor:
-                    colorScheme === 'dark'
-                      ? selectedLanguage === language.code
+                    colorScheme === 'dark' ? 
+                    selectedLanguage === language.code
                         ? '#1E3A8A'
                         : '#2D3748'
                       : selectedLanguage === language.code
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 16,
+    marginTop: 40,
     marginBottom: 24,
   },
   headerTitle: {

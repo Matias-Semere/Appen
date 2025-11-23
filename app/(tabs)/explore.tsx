@@ -44,13 +44,13 @@ export default function SkyltarScreen() {
 
         {/* Filter Pills */}
         <ThemedView style={styles.filterContainer}>
-          <TouchableOpacity style={[styles.filterPill, { backgroundColor: '#E0E7FF' }]}>
+          <TouchableOpacity style={[styles.filterPill, { backgroundColor: 'white' }]}>
             <ThemedText style={{ color: '#000000ff', fontSize: 12 }}>Alla</ThemedText>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.filterPill}>
+          <TouchableOpacity style={[styles.filterPill, { backgroundColor: 'white' }]}>
             <ThemedText style={{color: "#000000ff", fontSize: 12 }}>Vägar</ThemedText>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.filterPill, { backgroundColor: '#33a9edff' }]}>
+          <TouchableOpacity style={[styles.filterPill, { backgroundColor: 'white' }]}>
             <ThemedText style={{color: "#000000ff", fontSize: 12 }}>Stad</ThemedText>
           </TouchableOpacity>
         </ThemedView>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   headerSection: {
     paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingTop: 40,
     paddingBottom: 12,
   },
   headerTop: {

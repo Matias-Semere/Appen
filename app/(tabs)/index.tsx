@@ -14,8 +14,7 @@ export default function HomeScreen() {
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false} contentInset={{ top: 16, bottom: 16 }}>
         {/* Header */}
         <ThemedView style={styles.header}>
-          <ThemedText type="title" style={styles.greeting}>Hej</ThemedText>
-          <IconSymbol name="bell.fill" size={24} color={colors.icon} />
+          <ThemedText type="title" style={styles.greeting}>Välkommen Fredrik ⭐</ThemedText>
         </ThemedView>
 
         {/* Dagens mål */}
@@ -35,10 +34,10 @@ export default function HomeScreen() {
         <ThemedView style={styles.section}>
           <ThemedText type="subtitle" style={styles.sectionTitle}>Fortsätt där du slutade</ThemedText>
           <TouchableOpacity style={[styles.userCard, { backgroundColor: colorScheme === 'dark' ? '#1E3A5F' : '#E8F5E9' }]}>
-            <IconSymbol name="person.fill" size={28} color="#0a7ea4" />
+            <IconSymbol name="star.fill" size={28} color="#0a7ea4" />
             <View style={styles.userInfo}>
-              <ThemedText type="defaultSemiBold">Människor</ThemedText>
-              <ThemedText style={styles.subtext}>iga</ThemedText>
+              <ThemedText type="defaultSemiBold">Quiz fråga 3</ThemedText>
+              <ThemedText style={styles.subtext}>vad innebär detta vägmärke?</ThemedText>
             </View>
           </TouchableOpacity>
         </ThemedView>
@@ -59,13 +58,6 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </ThemedView>
       </ScrollView>
-
-      {/* Bottom Navigation Indicators */}
-      <ThemedView style={styles.bottomNav}>
-        <IconSymbol name="checkmark.circle" size={24} color={colors.icon} />
-        <IconSymbol name="bookmark" size={24} color={colors.icon} />
-        <IconSymbol name="person" size={24} color={colors.icon} />
-      </ThemedView>
     </ThemedView>
   );
 }
@@ -83,11 +75,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 16,
+    marginTop: 40,
     marginBottom: 24,
   },
   greeting: {
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: '700',
   },
   section: {
@@ -138,7 +130,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 6,
-    paddingBottom: 8,
+    paddingBottom: 0,
   },
   activityLabel: {
     marginTop: 8,
