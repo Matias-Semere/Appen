@@ -1,7 +1,7 @@
 // Fallback for using MaterialIcons on Android and web.
 
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { SymbolWeight, SymbolViewProps } from 'expo-symbols';
+import { SymbolWeight } from 'expo-symbols';
 import { ComponentProps } from 'react';
 import { OpaqueColorValue, type StyleProp, type TextStyle } from 'react-native';
 
@@ -17,6 +17,8 @@ const MAPPING: IconMapping = {
   'paperplane.fill': 'send',
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
+  'chevron_right': 'chevron-right',
+  'chevron.left': 'chevron-left',
   'star.fill': 'star',
   'checkmark.circle.fill': 'check-circle',
   'triangle.fill': 'change-history',
@@ -24,13 +26,12 @@ const MAPPING: IconMapping = {
   'bell.fill': 'notifications',
   'film.fill': 'movie',
   'person.fill': 'person',
+  'person': 'person',
   'questionmark.circle.fill': 'help',
   'binoculars.fill': 'visibility',
   'play.circle.fill': 'play-circle',
   'checkmark.circle': 'check-circle',
   'bookmark': 'bookmark',
-  'person': 'person',
-  'chevron.left': 'chevron-left',
   'line.horizontal.3': 'menu',
   'info.circle.fill': 'info',
   'exclamationmark.triangle.fill': 'warning',
@@ -39,6 +40,25 @@ const MAPPING: IconMapping = {
   'circle.fill': 'circle',
   'smileyface': 'sentiment-satisfied',
   'smileyface.fill': 'sentiment-satisfied',
+  
+  // Additional mappings for our app
+  'arrow_back': 'arrow-back',
+  'account_circle': 'account-circle',
+  'menu_book': 'menu-book',
+  'task_alt': 'task-alt',
+  'chat_bubble': 'chat-bubble',
+  'access_time': 'access-time',
+  'security': 'security',
+  'notifications': 'notifications',
+  'school': 'school',
+  'bar_chart': 'bar-chart',
+  'language': 'language',
+  'logout': 'logout',
+  'quiz': 'quiz',
+  'star': 'star',
+  'inbox': 'inbox',
+  'play_arrow': 'play-arrow',
+  'color_lens': 'color-lens',
 };
 
 /**
